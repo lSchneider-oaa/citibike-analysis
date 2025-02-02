@@ -19,7 +19,7 @@ def haversine(lat1, lon1, lat2, lon2):
 
 # Load data
 start_time = time.time()
-df = pd.read_csv('C:/Users/Leon/Coding/Citi Bike/202412-citibike-tripdata_total.csv', engine='pyarrow')
+df = pd.read_csv('C:/Users/Leon/Coding/Citi Bike/202412-citibike-tripdata_total.csv', engine='pyarrow', usecols=['start_lat', 'start_lng', 'end_lat', 'end_lng'])
 df = df.dropna(subset=['start_lat', 'start_lng', 'end_lat', 'end_lng'])
 print(f"CSV read time: {time.time() - start_time:.2f} seconds")
 

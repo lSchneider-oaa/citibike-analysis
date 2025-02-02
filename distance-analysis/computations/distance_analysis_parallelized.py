@@ -1,34 +1,32 @@
+from numba import jit
 import numpy as np
 import pandas as pd
 import time
 
 start_time_total = time.time()
 
-# Define vectorized haversine function
-def haversine(lat1, lon1, lat2, lon2):
-    lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])
-
-    # Haversine formula
+@jit(nopython=True, parallel=True)
+def haversine_numba(lat1, lon1, lat2, lon2):
+    # Same Haversine logic as before
+    lat1, lon1, lat2, lon2 = np.radians(lat1), np.radians(lon1), np.radians(lat2), np.radians(lon2)
     dlat = lat2 - lat1
     dlon = lon2 - lon1
     a = np.sin(dlat / 2.0) ** 2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon / 2.0) ** 2
     c = 2 * np.arcsin(np.sqrt(a))
-
-    # Earth's radius in kilometers
     return 6371 * c
 
-# Load data
 start_time = time.time()
-df = pd.read_csv('C:/Users/Leon/Coding/Citi Bike/202412-citibike-tripdata_total.csv', engine='pyarrow')
+df = pd.read_csv('C:/Users/Leon/Coding/Citi Bike/202412-citibike-tripdata_total.csv', low_memory=False)
 df = df.dropna(subset=['start_lat', 'start_lng', 'end_lat', 'end_lng'])
 print(f"CSV read time: {time.time() - start_time:.2f} seconds")
 
-# Use vectorized haversine function
+# Apply with Numba-optimized function
 start_time = time.time()
-df['distance_km'] = haversine(df['start_lat'].to_numpy(), df['start_lng'].to_numpy(), df['end_lat'].to_numpy(), df['end_lng'].to_numpy())
+df['distance_km'] = haversine_numba(df['start_lat'].values, df['start_lng'].values, df['end_lat'].values, df['end_lng'].values)
 print(f"Distance calculation time: {time.time() - start_time:.2f} seconds")
 
-# Compute average distance
+print(df.memory_usage(deep=True).sum() / (1024 ** 2), "MB")
+
 start_time = time.time()
 average_distance = df['distance_km'].mean()
 print(f"Average distance calculation time: {time.time() - start_time:.2f} seconds")

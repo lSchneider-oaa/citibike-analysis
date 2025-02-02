@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import time
 
+start_time_total = time.time()
+
 # Define vectorized haversine function
 def haversine(lat1, lon1, lat2, lon2):
     lat1, lon1, lat2, lon2 = map(np.radians, [lat1, lon1, lat2, lon2])
@@ -29,5 +31,8 @@ print(f"Distance calculation time: {time.time() - start_time:.2f} seconds")
 # Compute average distance
 start_time = time.time()
 average_distance = df['distance_km'].mean()
-print(f"Average calculation time: {time.time() - start_time:.2f} seconds")
+print(f"Average distance calculation time: {time.time() - start_time:.2f} seconds")
 print(f"The average distance per ride is {average_distance:.2f} km.")
+
+total_time = time.time() - start_time_total
+print(f"Total computation time: {total_time:.2f} seconds")
