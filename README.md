@@ -20,7 +20,7 @@ For startes I wanted to get an onverview over the data. I ran df.info() to get a
 
 The first question that popped into my mind was the average ride distance using the bikes. For startes I decided to go with the straight-line distance to minimize complexity. Still, with my first implementation I ran into a computation time of over three minutes. Due to some optimization steps I was able to get the whole thing running in less then one second. I will outline the steps and progress in the following.
 
-### Iteration 1:
+### Iteration 1: Using geopy.distance
 
 ### Iteration 2:
 
