@@ -22,12 +22,22 @@ The first question that popped into my mind was the average ride distance using 
 
 ### Iteration 1: Using geopy.distance
 
-### Iteration 2:
+### Iteration 2: Swifter
 
-### Iteration 3:
+### Iteration 3: Parallelized
 
-### Iteration 4:
+### Iteration 4: Parallelized using Chunks
 
-### Iteration 5:
+### Iteration 5: Parallelized using Dask
+
+### Iteration 6: Swifter
+
+### Iteration 6: Numpy
+
+### Iteration 7: Numpy & Pyarrow
+
+### Iteration 8: Numpy & Usecols
+
+### Iteration 9: Numpy, Pyarrow & Usecols
 
 ## Notebook specifications
