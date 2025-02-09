@@ -21,8 +21,10 @@ For startes I wanted to get an onverview over the data. I ran df.info() to get a
 The first question that popped into my mind was the average ride distance using the bikes. For startes I decided to go with the straight-line distance to minimize complexity. Still, with my first implementation I ran into a computation time of over three minutes. Due to some optimization steps I was able to get the whole thing running in less then one second. I will outline the steps and progress in the following.
 
 ### Iteration 1: Using geopy.distance
+The first iteration on computing the average distance per ride was the most obvious: I used pandas to create a dataframe from the merged csv File. Then I cleaned the dataframe from all rows with some empty entries. Next I added the distance_km column by using the star and end coordinates of each row and the geodesic method. With the mean method I was able to compute the average of all those distance entries. Already on the first run I became aware that my implementation was very inefficient as it took multiple minutes. Even though the computing power of my machine is limited and the file is of medium to large size with around 2.3 million rows that seemed to take way to long. Therefore, I did some research to improve the implementation. 
 
 ### Iteration 2: Swifter
+As I initially assumed that adding the new distance_km entries to the dataframe was the bottleneck I thought about some solution to improve that process. My first idea was paralellizing the process. Swifter seemed like an appropriate tool. After some testing I quickly realized that my implementation became even worse.
 
 ### Iteration 3: Parallelized
 
